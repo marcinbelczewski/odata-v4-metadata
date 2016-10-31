@@ -64,6 +64,10 @@ export declare namespace Edm {
         referentialConstraints: Array<ReferentialConstraint>;
         annotations: Array<Edm.Annotation>;
     }
+    class NavigationPropertyBinding extends EdmItemBase {
+        path: string;
+        target: string;
+    }
     class ReferentialConstraint extends EdmItemBase {
         property: string;
         referencedProperty: string;
@@ -147,6 +151,7 @@ export declare namespace Edm {
     class EntitySet extends EdmItemBase {
         name: string;
         entityType: string;
+        navigationPropertyBindings: Array<Edm.NavigationPropertyBinding>;
         annotations: Array<Edm.Annotation>;
     }
     class ActionImport extends EdmItemBase {

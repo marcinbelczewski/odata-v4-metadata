@@ -640,6 +640,38 @@ describe("Edm.Annotations", () => {
         expect(ed.annotations[0].propertyPaths).to.deep.equal(["RowVersion"])
     })
 
+
+    it("Edm.NavigationPropertyBinding on EntitySet", () => {
+        var p = {
+            "name": "Articles",
+            "entityType": "JayData.Test.CommonItems.Entities.Article",
+            "navigationPropertyBinding": [
+                {
+                    "path": "Category",
+                    "target": "Categories"
+                },
+                {
+                    "path": "Tags",
+                    "target": "TagConnections"
+                },
+                {
+                    "path": "Author",
+                    "target": "Users"
+                },
+                {
+                    "path": "Reviewer",
+                    "target": "Users"
+                }
+            ]
+        }
+        var ed = new Edm.EntitySet(p, {});
+        expect(ed.navigationPropertyBindings).not.to.be.null;
+        expect(ed.navigationPropertyBindings.length).to.equal(4);        
+        expect(ed.navigationPropertyBindings[0]).to.be.instanceof(Edm.NavigationPropertyBinding);
+        expect(ed.navigationPropertyBindings[0].path).to.equal("Category");
+        expect(ed.navigationPropertyBindings[0].target).to.equal("Categories");
+    })
+
     it("Edm.StringAnnotation collection value", () => {
         var p = {
             "term": "org.example.seo.SeoTerms",

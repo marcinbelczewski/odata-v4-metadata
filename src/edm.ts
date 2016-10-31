@@ -169,6 +169,17 @@ export namespace Edm {
         public annotations: Array<Edm.Annotation>
     }
 
+    export class NavigationPropertyBinding extends EdmItemBase {
+        @parse
+        @required
+        public path: string;
+        
+        @parse
+        @required
+        public target: string;
+    }
+
+
     export class ReferentialConstraint extends EdmItemBase {
         @parse
         @required
@@ -410,6 +421,9 @@ export namespace Edm {
         @required
         public entityType: string
         
+        @parseAs(mapArray("navigationPropertyBinding", (prop, i) => new NavigationPropertyBinding(prop, i)))
+        public navigationPropertyBindings: Array<Edm.NavigationPropertyBinding>;
+
         @parseAs(mapArray("annotation", (prop, i) => new (annotationTypeSelector(prop))(prop, i)))
         public annotations: Array<Edm.Annotation>
     }
